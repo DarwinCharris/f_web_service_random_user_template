@@ -15,32 +15,43 @@ class UserRepository implements IUserRepository {
   }
 
   @override
-  Future<void> deleteAll() {
+  Future<void> deleteAll() async {
     // TODO: implement deleteAll
-    throw UnimplementedError();
+    return await localDataSource.deleteAll();
+    //throw UnimplementedError();
   }
 
   @override
-  Future<void> deleteUser(id) {
+  Future<void> deleteUser(id) async {
     // TODO: implement deleteUser
-    throw UnimplementedError();
+    return await localDataSource.deleteUser(id);
+    //throw UnimplementedError();
   }
 
   @override
-  Future<List<RandomUser>> getAllUsers() {
+  Future<List<RandomUser>> getAllUsers() async {
     // TODO: implement getAllUsers
-    throw UnimplementedError();
+    return await localDataSource.getAllUsers();
+    //throw UnimplementedError();
   }
 
   @override
-  Future<bool> getUser() {
+  Future<bool> getUser() async {
     // TODO: implement getUser
-    throw UnimplementedError();
+    RandomUser user = await remoteDataSource.getUser();
+    if (user != null) {
+      await localDataSource.addUser(user);
+      return true;
+    } else {
+      return false;
+    }
+    //throw UnimplementedError();
   }
 
   @override
-  Future<void> updateUser(user) {
+  Future<void> updateUser(user) async {
     // TODO: implement updateUser
-    throw UnimplementedError();
+    return await localDataSource.updateUser(user);
+    //throw UnimplementedError();
   }
 }
